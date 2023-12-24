@@ -15,15 +15,7 @@ function updateHealthBar(health) {
     healthBar.style.width = (health / 3) * 100 + '%';
 }
 
-function showRing() {
-    ring.style.display = 'block';
-    isRingVisible = true;
-}
 
-function hideRing() {
-    ring.style.display = 'none';
-    isRingVisible = false;
-}
 
 updateHealthBar(health);
 
@@ -45,11 +37,22 @@ document.addEventListener('mouseup', () => {
         }, 300);
         isShrunk = false;
 
-        if (!isRingVisible && isShrunk) {
-            showRing();
+        if (!isRingVisible) {
+            ring.style.display = 'block';
+            ring.style.transform = 'scale(1)';
+            isRingVisible = true;
+
             setTimeout(() => {
-                hideRing();
+                ring.style.transform = 'scale(20)';
+            }, 100);
+
+            setTimeout(() => {
+                ring.style.display = 'none';
+                isRingVisible = false;
             }, 1000);
+        } else {
+            ring.style.display = 'none';
+            isRingVisible = false;
         }
     }
 });
@@ -131,5 +134,4 @@ window.addEventListener('resize', function() {
     window.resizeTo(window.innerWidth, window.innerHeight);
 });
 
-// Masquer l'anneau au chargement de la page
-hideRing();
+
